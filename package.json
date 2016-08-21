@@ -1,0 +1,28 @@
+{
+  "name": "woopa-server",
+  "version": "1.0.0",
+  "description": "html weaver (server: node)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://wooparay@github.com/wooparay/woopa-server.git"
+  },
+  "keywords": [
+    "html",
+    "weaver",
+    "nodejs",
+    "builder"
+  ],
+  "author": "Json Wong",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/wooparay/woopa-server/issues"
+  },
+  "homepage": "https://github.com/wooparay/woopa-server#readme",
+  "dependencies": {
+    "express": "^4.14.0"
+  }
+}
