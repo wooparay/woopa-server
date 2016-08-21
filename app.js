@@ -16,8 +16,7 @@ const MongoStore = require('connect-mongo')(session);
 /*  object inits starts here    */
 /* **************************** */
 
-var serverConfFile = 'conf/server.json'; 
-var serverConf = JSON.parse(fs.readFileSync(serverConfFile));
+var serverConf = JSON.parse(fs.readFileSync('conf/server.json'));
 
 var app = express();
 
@@ -40,9 +39,16 @@ app.use(session({
     })
 }));
 
+// set static file path (usually pointing to the client app)
 app.use(express.static(serverConf['static-files']));
 
+// * setup morgan (only non-static routes would be recorded)
+app.use(log('combined'));
+
+// setup of routing (for this case '/test')
 app.use('/test', router);
+
+
 
 /* **************************** */
 /*  listen to server (start)    */
