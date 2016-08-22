@@ -22,7 +22,7 @@ router.get('/test-session', function(req, res) {
         req.session.username = 'name-1';
     }
     
-    res.send('inside test-session route~ '+name);
+    res.send('inside test-session route~~ '+name);
 });
 
 

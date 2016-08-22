@@ -6,6 +6,7 @@
 var express = require('express');   // express framework
 var fs = require('fs');             // file io
 var log = require('morgan');        // logging http messages
+var compression = require('compression');
 
 var router = require('./middlewares/router');
 
@@ -23,6 +24,10 @@ var app = express();
 /* ******************** */
 /*  setup middleware(s) */
 /* ******************** */
+
+// ** https://github.com/senchalabs/connect#readme
+// must be the first middleware
+app.use(compression());
 
 // ** https://github.com/expressjs/session
 app.use(session({
