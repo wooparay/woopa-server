@@ -40,6 +40,8 @@ var init = function(express) {
     //   the user to google.com.  After authorization, Google will redirect the user
     //   back to this application at /auth/google/callback
     // * { scope: 'https://www.google.com/m8/feeds' }
+    //
+    // ** https://developers.google.com/identity/protocols/googlescopes
     router.get('/google-login', 
                passport.authenticate('google', { scope: 'profile' } ));
 
