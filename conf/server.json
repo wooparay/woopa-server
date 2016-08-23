@@ -1,4 +1,6 @@
 {
     "server-port": 9988,
-    "static-files": "/Users/jl/Documents/_jsonProjects/wooparay/woopa-client-angular2/public/"
+    "static-files": "/Users/jl/Documents/_jsonProjects/wooparay/woopa-client-angular2/public/",
+    "mongodb-url": "mongodb://localhost/woopa",
+    "mongodb-http-session-collection": "woopa-sessions"
 }
