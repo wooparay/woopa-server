@@ -17,11 +17,12 @@ var init = function(express, userModel) {
         }, 
         // verify callback
         function(req, accessToken, refreshToken, googleProfile, done) {
-
+            /*
             console.log('accessToken: '+accessToken);
             console.log('refreshToken: '+refreshToken);
             console.log('googleProfile: ');
             console.log(googleProfile);
+            */
             
             var UserSchema = userModel.schema('google-users');
             var user = new UserSchema({
@@ -98,14 +99,21 @@ var init = function(express, userModel) {
     });
     
     passport.deserializeUser(function(id, done) {
-        console.log('** inside deserializeUser');
-        // TODO: find user in mongo...
-/*
-  User.findById(id, function(err, user) {
-    done(err, user);
-  });
-*/
-        done(null, null);
+        //console.log('** inside deserializeUser: '+id);
+        var UserSchema = userModel.schema('google-users');
+        
+        // provider could be get from ... req.session['session-provider'] though
+        UserSchema.findOne(
+            { id: id, provider: 'google' },
+            null, // projection (get all fields for now)
+            null, 
+            function(err, results) {
+                // results = user model (google-users collection)
+                if (err) done(err, null);
+                
+                done(null, results);
+            }
+        );
     });
     
     
@@ -135,12 +143,16 @@ var init = function(express, userModel) {
     router.get('/callback', 
                 passport.authenticate(
                     'google', 
-                    { failureRedirect: '/login' }
-                ),
+                    { successRedirect: '/', failureRedirect: '/login' }
+                )
+              );
+               /*,
                 function(req, res) {
                     res.send('done seems');
-//res.redirect('/');
-                });
+                //res.redirect('/');
+                }
+                */
+
     
     return {
         passport: passport, 

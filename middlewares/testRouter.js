@@ -1,7 +1,7 @@
 /**
  *  testing purpose, exports a function to create the testing-router
  */
-var createRouter = function(express, userModel) {
+var createRouter = function(express, userModel, googlePassport) {
     var router = express.Router();
 
     /* **************** */
@@ -19,15 +19,20 @@ var createRouter = function(express, userModel) {
         res.send('inside test-session route~~ '+name);
     });
     
+    /**
+     *  brute force checking based on req.session
+     */
     router.get('/test-session-auth', function(req, res) {
-        if (req.session['session-id'] && req.session['session-provider']) {
+        console.log(req.session);
+        
+        if (req.session['session-id'] && req.session['session-provider'] && req.session.passport.user) {
             res.send('login ok~ ' + req.session['session-id']);
             
         } else {
             res.send('not yet login~');
         }
     });
-    
+
     /**
      *  test on post method; save a user in collection google-users
      */

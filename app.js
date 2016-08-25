@@ -10,6 +10,7 @@ var bluebird = require('bluebird'); // promise library for mongoose
 var configMiddleware = require('./helpers/appConfig');
 var testRouter = require('./middlewares/testRouter');
 var mongoose = require('./helpers/mongooseConnector');
+var googlePassport = require('./helpers/googleOAuth2Config');
 
 var userModel = require('./models/user');
 
@@ -33,13 +34,22 @@ mongoose = mongoose(serverConf['mongodb-url'], { }, bluebird);
 
 userModel = userModel(mongoose);
 
-configMiddleware(express, app, serverConf, mongoose, userModel);
+configMiddleware(express, app, serverConf, mongoose);
+
+// * setup passport
+googlePassport = googlePassport(express, userModel);
+app.use(googlePassport.passport.initialize());
+app.use(googlePassport.passport.session());
+app.use('/oauth2', googlePassport.router);
 
 /* **************** */
 /*  setup routes    */
 /* **************** */
 
-app.use('/test', testRouter(express, userModel));
+app.use('/test', testRouter(express, userModel, googlePassport));
+
+// * set default path (even if the request path is invalid)
+//app.use('/', function(req, res) { res.redirect('/main.html'); });
 
 
 
