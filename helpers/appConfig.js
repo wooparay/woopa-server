@@ -42,7 +42,8 @@ var configureAppServer = function(express, app, serverConf, mongoose) {
     */
 
     // set static file path (usually pointing to the client app)
-    app.use(express.static(serverConf['static-files']));
+    //app.use(express.static(serverConf['static-files']));
+    app.use(express.static(process.env['STATIC_FILES_LOCATION']));
 
     // * setup morgan (only non-static routes would be recorded)
     app.use(morgan('combined'));
