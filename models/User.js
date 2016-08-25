@@ -21,7 +21,8 @@ var ctor = function(mongoose) {
             value: { type:String, default: null },  // value of email (e.g. abc@gmail.com)
             type: { type:String, default: null }    // type (e.g. biz, home)
         }],
-        photos: [{ type:String, default: null }]    // url of photos
+        photos: [{ type:String, default: null }],    // url of photos
+        accessToken: { type:String, default: null }
     });
     
     // add methods (model methods) here if any...

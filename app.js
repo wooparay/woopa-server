@@ -33,7 +33,7 @@ mongoose = mongoose(serverConf['mongodb-url'], { }, bluebird);
 
 userModel = userModel(mongoose);
 
-configMiddleware(express, app, serverConf, mongoose);
+configMiddleware(express, app, serverConf, mongoose, userModel);
 
 /* **************** */
 /*  setup routes    */

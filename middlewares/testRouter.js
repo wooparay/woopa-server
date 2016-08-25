@@ -19,13 +19,25 @@ var createRouter = function(express, userModel) {
         res.send('inside test-session route~~ '+name);
     });
     
+    router.get('/test-session-auth', function(req, res) {
+        if (req.session['session-id'] && req.session['session-provider']) {
+            res.send('login ok~ ' + req.session['session-id']);
+            
+        } else {
+            res.send('not yet login~');
+        }
+    });
+    
+    /**
+     *  test on post method; save a user in collection google-users
+     */
     router.post('/test-save-user', function(req, res) {
         /*
          *  params => route param
          *  query => either body or form param
          */
         var name = req.body.name;
-        var userSchema = userModel.schema('google-user');
+        var userSchema = userModel.schema('google-users');
         var user = new userSchema({
             provider: 'google',
             id: '111111',

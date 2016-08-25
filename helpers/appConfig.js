@@ -12,7 +12,7 @@ var sessionCreator = require('./../middlewares/sessionCreator');
 var googlePassport = require('./googleOAuth2Config');
 
 
-var configureAppServer = function(express, app, serverConf, mongoose) {
+var configureAppServer = function(express, app, serverConf, mongoose, userModel) {
     // ** https://github.com/senchalabs/connect#readme
     // must be the first middleware
     app.use(compression());
@@ -34,7 +34,7 @@ var configureAppServer = function(express, app, serverConf, mongoose) {
         mongoose
     ));
     
-    googlePassport = googlePassport(express);
+    googlePassport = googlePassport(express, userModel);
     app.use(googlePassport.passport.initialize());
     app.use(googlePassport.passport.session());
     app.use('/oauth2', googlePassport.router);
