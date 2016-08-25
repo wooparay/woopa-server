@@ -1,0 +1,5 @@
+{
+    "server-port": 9988,
+    "mongodb-url": "mongodb://localhost/woopa",
+    "mongodb-http-session-collection": "woopa-sessions"
+}
