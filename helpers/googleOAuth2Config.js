@@ -143,7 +143,7 @@ var init = function(express, userModel) {
     router.get('/callback', 
                 passport.authenticate(
                     'google', 
-                    { successRedirect: '/', failureRedirect: '/login' }
+                    { successRedirect: '/main.html', failureRedirect: '/login' }
                 )
               );
                /*,
