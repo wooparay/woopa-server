@@ -33,17 +33,29 @@ var configureAppServer = function(express, app, serverConf, mongoose, userModel)
         mongoose
     ));
     
+    // setup client ignore paths
+    setupClientIgnorePaths(app);
+    
+    // setup google oauth2 passport
     googlePassport = googlePassport(express, userModel);
     app.use(googlePassport.passport.initialize());
     app.use(googlePassport.passport.session());
     app.use('/oauth2', googlePassport.router);
 
-    // set static file path (usually pointing to the client app)
-    //app.use(express.static(serverConf['static-files']));
+    // set static file path (usually pointing to the client app)    //app.use(express.static(serverConf['static-files']));
     app.use(express.static(process.env['STATIC_FILES_LOCATION']));
 
     // * setup morgan (only non-static routes would be recorded)
     app.use(morgan('combined'));
+};
+
+var setupClientIgnorePaths = function(app) {
+    /* not work ... as node_modules (get must be... returned for angular2 to run)
+    app.all('/node_modules/*', function(req, res) {
+        console.log('** forbidden ** ');
+        res.send('** forbidden');
+    });
+    */
 };
 
 module.exports = configureAppServer;
