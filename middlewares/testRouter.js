@@ -1,7 +1,7 @@
 /**
  *  testing purpose, exports a function to create the testing-router
  */
-var createRouter = function(express, userModel, googlePassport) {
+var createRouter = function(express, userModel) {
     var router = express.Router();
 
     /* **************** */

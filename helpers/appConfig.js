@@ -9,10 +9,9 @@ var bodyParser = require('body-parser');
 
 // {optional} if need to create http session based on cookies
 var sessionCreator = require('./../middlewares/sessionCreator');
-//var googlePassport = require('./googleOAuth2Config');
+var googlePassport = require('./googleOAuth2Config');
 
-
-var configureAppServer = function(express, app, serverConf, mongoose) {
+var configureAppServer = function(express, app, serverConf, mongoose, userModel) {
     // ** https://github.com/senchalabs/connect#readme
     // must be the first middleware
     app.use(compression());
@@ -34,12 +33,10 @@ var configureAppServer = function(express, app, serverConf, mongoose) {
         mongoose
     ));
     
-    /*
     googlePassport = googlePassport(express, userModel);
     app.use(googlePassport.passport.initialize());
     app.use(googlePassport.passport.session());
     app.use('/oauth2', googlePassport.router);
-    */
 
     // set static file path (usually pointing to the client app)
     //app.use(express.static(serverConf['static-files']));
