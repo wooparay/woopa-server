@@ -33,9 +33,6 @@ var configureAppServer = function(express, app, serverConf, mongoose, userModel)
         mongoose
     ));
     
-    // setup client ignore paths
-    setupClientIgnorePaths(app);
-    
     // setup google oauth2 passport
     googlePassport = googlePassport(express, userModel);
     app.use(googlePassport.passport.initialize());
@@ -49,13 +46,5 @@ var configureAppServer = function(express, app, serverConf, mongoose, userModel)
     app.use(morgan('combined'));
 };
 
-var setupClientIgnorePaths = function(app) {
-    /* not work ... as node_modules (get must be... returned for angular2 to run)
-    app.all('/node_modules/*', function(req, res) {
-        console.log('** forbidden ** ');
-        res.send('** forbidden');
-    });
-    */
-};
 
 module.exports = configureAppServer;
